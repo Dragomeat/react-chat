@@ -1,12 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 /**
- * Class MessageCollection
- * @package App\Http\Resources
+ * Class MessageCollection.
  */
 class MessageCollection extends ResourceCollection
 {
@@ -18,14 +19,15 @@ class MessageCollection extends ResourceCollection
     /**
      * Transform the resource collection into an array.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request): array
     {
         return [
             'success' => true,
-            'data' => $this->collection,
+            'data'    => $this->collection,
         ];
     }
 }

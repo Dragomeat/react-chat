@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Providers;
 
@@ -9,8 +11,7 @@ use App\Policies\MessagePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 /**
- * Class AuthServiceProvider
- * @package App\Providers
+ * Class AuthServiceProvider.
  */
 class AuthServiceProvider extends ServiceProvider
 {
@@ -19,7 +20,7 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         Conversation::class => ConversationPolicy::class,
-        Message::class => MessagePolicy::class,
+        Message::class      => MessagePolicy::class,
     ];
 
     /**

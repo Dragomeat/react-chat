@@ -1,26 +1,27 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
 use App\Event\MessageCreated;
 use App\Http\Requests\CreateMessageRequest;
 use App\Http\Requests\UpdateMessageRequest;
+use App\Http\Resources\MessageCollection;
 use App\Http\Resources\MessageResource;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\Participant;
-use Illuminate\Http\Request;
-use App\Http\Resources\MessageCollection;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * Class MessageController
- * @package App\Http\Controllers
+ * Class MessageController.
  */
 class MessageController extends Controller
 {
     /**
      * @param Conversation $conversation
+     *
      * @return JsonResource
      */
     public function index(Conversation $conversation): JsonResource
@@ -35,9 +36,11 @@ class MessageController extends Controller
 
     /**
      * @param CreateMessageRequest $request
-     * @param Conversation $conversation
-     * @return JsonResource
+     * @param Conversation         $conversation
+     *
      * @throws \Exception
+     *
+     * @return JsonResource
      */
     public function store(CreateMessageRequest $request, Conversation $conversation): JsonResource
     {
@@ -51,9 +54,9 @@ class MessageController extends Controller
 
         $message = Message::create([
             'conversation_id' => $conversation->id,
-            'participant_id' => $participant->id,
-            'user_id' => $user->id,
-            'content' => $request->get('content'),
+            'participant_id'  => $participant->id,
+            'user_id'         => $user->id,
+            'content'         => $request->get('content'),
         ]);
 
         event(new MessageCreated($message));
@@ -63,7 +66,8 @@ class MessageController extends Controller
 
     /**
      * @param Conversation $conversation
-     * @param Message $message
+     * @param Message      $message
+     *
      * @return JsonResource
      */
     public function show(Conversation $conversation, Message $message): JsonResource
@@ -73,8 +77,9 @@ class MessageController extends Controller
 
     /**
      * @param \App\Http\Requests\UpdateMessageRequest $request
-     * @param \App\Models\Conversation $conversation
-     * @param \App\Models\Message $message
+     * @param \App\Models\Conversation                $conversation
+     * @param \App\Models\Message                     $message
+     *
      * @return \App\Http\Resources\MessageResource
      */
     public function update(UpdateMessageRequest $request, Conversation $conversation, Message $message): MessageResource
@@ -88,9 +93,11 @@ class MessageController extends Controller
 
     /**
      * @param Conversation $conversation
-     * @param Message $message
-     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
+     * @param Message      $message
+     *
      * @throws \Exception
+     *
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Symfony\Component\HttpFoundation\Response
      */
     public function destroy(Conversation $conversation, Message $message)
     {

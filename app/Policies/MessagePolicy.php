@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Policies;
 
@@ -6,8 +8,7 @@ use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 /**
- * Class ConversationPolicy
- * @package App\Policies
+ * Class ConversationPolicy.
  */
 class MessagePolicy
 {
@@ -15,6 +16,7 @@ class MessagePolicy
 
     /**
      * @param \App\Models\User $user
+     *
      * @return bool
      */
     public function create(User $user): bool

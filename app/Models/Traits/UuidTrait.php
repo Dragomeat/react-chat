@@ -1,12 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Models\Traits;
+
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
- * Trait UuidTrait
- * @package App\Models\Traits
+ * Trait UuidTrait.
  */
 trait UuidTrait
 {

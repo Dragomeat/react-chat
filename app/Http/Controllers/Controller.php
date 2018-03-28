@@ -1,15 +1,18 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
-use Swagger\Annotations as SWG;
-use Illuminate\Foundation\Bus\DispatchesJobs;
-use Illuminate\Routing\Controller as BaseController;
-use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
+use Illuminate\Foundation\Bus\DispatchesJobs;
+use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Routing\Controller as BaseController;
+use Swagger\Annotations as SWG;
 
 /**
- * Class Controller
+ * Class Controller.
+ *
  * @SWG\Info(
  *   title="ReactMessenger",
  *   version="0.0.1",
@@ -30,7 +33,6 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
  *   produces={"application/json"},
  *   consumes={"application/json"},
  * )
- * @package App\Http\Controllers
  */
 class Controller extends BaseController
 {

@@ -1,14 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
 use App\Models\Message;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 /**
- * Class CreateMessageRequest
- * @package App\Http\Requests
+ * Class CreateMessageRequest.
  */
 class CreateMessageRequest extends FormRequest
 {

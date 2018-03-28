@@ -1,12 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Models\Conversation;
 
 use CommerceGuys\Enum\AbstractEnum;
 
 /**
- * Class Type
- * @package App\Models\Conversation
+ * Class Type.
  */
 class ConversationType extends AbstractEnum
 {

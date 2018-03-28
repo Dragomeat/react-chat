@@ -1,12 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Models\Participant;
 
 use CommerceGuys\Enum\AbstractEnum;
 
 /**
- * Class Role
- * @package App\Models\Participant
+ * Class Role.
  */
 class RoleType extends AbstractEnum
 {

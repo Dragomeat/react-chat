@@ -1,30 +1,33 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Listeners;
+
 use App\Event\MessageCreated;
 use App\Notifications\MessageWasCreated;
 
 /**
- * Class BroadcastMessageCreated
- * @package App\Listeners
+ * Class BroadcastMessageCreated.
  */
 class BroadcastMessageCreated
 {
     /**
      * @param \App\Event\MessageCreated $messageCreated
+     *
      * @return void
      */
-     public function handle(MessageCreated $messageCreated): void
-     {
-         /**
-          * @var \App\Models\Participant[] $participants
-          */
-         $message = $messageCreated->getMessage();
-         $message->load(['conversation', 'conversation.participants']);
-         $participants = $message->conversation->participants;
+    public function handle(MessageCreated $messageCreated): void
+    {
+        /**
+         * @var \App\Models\Participant[]
+         */
+        $message = $messageCreated->getMessage();
+        $message->load(['conversation', 'conversation.participants']);
+        $participants = $message->conversation->participants;
 
-         foreach ($participants as $participant) {
+        foreach ($participants as $participant) {
             // $participant->user->notify(new MessageWasCreated($message));
-         }
-     }
+        }
+    }
 }

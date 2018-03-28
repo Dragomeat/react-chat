@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use App\Models\Conversation;
 use App\Models\Conversation\ConversationType;
@@ -9,7 +11,7 @@ use App\Models\User;
 use Illuminate\Database\Seeder;
 
 /**
- * Class DatabaseSeeder
+ * Class DatabaseSeeder.
  */
 class DatabaseSeeder extends Seeder
 {
@@ -21,17 +23,17 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         /**
-         * @var \Illuminate\Database\Eloquent\Collection $users
+         * @var \Illuminate\Database\Eloquent\Collection
          * @var \Illuminate\Database\Eloquent\Collection $users
          */
         $users = factory(User::class, 100)->create([
-            'is_confirmed' => true
+            'is_confirmed' => true,
         ]);
 
         $users->add(User::create([
-            'name' => 'Dragomeat',
-            'email' => 'dragomeat@dragomeat.com',
-            'password' => bcrypt('secret'),
+            'name'         => 'Dragomeat',
+            'email'        => 'dragomeat@dragomeat.com',
+            'password'     => bcrypt('secret'),
             'is_confirmed' => true,
         ]));
 
@@ -41,7 +43,7 @@ class DatabaseSeeder extends Seeder
 
         for ($i = 0; $i < 1000; $i++) {
             /**
-             * @var \App\Models\User $user
+             * @var \App\Models\User
              * @var \App\Models\Conversation $conversation
              */
             $conversation = $conversations->random();
@@ -53,9 +55,9 @@ class DatabaseSeeder extends Seeder
                 ->first() !== null);
 
             $participant = Participant::create([
-                'user_id' => $user->id,
+                'user_id'         => $user->id,
                 'conversation_id' => $conversation->id,
-                'role' => $conversation->participants()
+                'role'            => $conversation->participants()
                     ->where('role', RoleType::ADMIN)
                     ->count() > 0 ? RoleType::MEMBER : RoleType::ADMIN,
             ]);
@@ -64,9 +66,8 @@ class DatabaseSeeder extends Seeder
 
             factory(Message::class, random_int(10, 500))->create([
                 'conversation_id' => $conversation->id,
-                'participant_id' => $participant->id,
+                'participant_id'  => $participant->id,
             ]);
         }
-
     }
 }

@@ -1,9 +1,10 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -11,17 +12,18 @@ use Tymon\JWTAuth\Exceptions\TokenExpiredException;
 use Tymon\JWTAuth\Http\Middleware\BaseMiddleware;
 
 /**
- * Class AuthenticateAndIfNeedRefreshToken
- * @package App\Http\Middleware
+ * Class AuthenticateAndIfNeedRefreshToken.
  */
 class AuthenticateAndIfNeedRefreshToken extends BaseMiddleware
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
-     * @return \Illuminate\Http\JsonResponse
+     * @param \Closure                 $next
+     *
      * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
     public function handle(Request $request, Closure $next)
     {
@@ -32,12 +34,14 @@ class AuthenticateAndIfNeedRefreshToken extends BaseMiddleware
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \Closure $next
-     * @param null|string $token
-     * @return \Illuminate\Http\JsonResponse
+     * @param \Closure                 $next
+     * @param null|string              $token
+     *
      * @throws \Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException
+     *
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function authenticateAndMaybeRefresh(Request $request,  Closure $next, ?string $token = null)
+    public function authenticateAndMaybeRefresh(Request $request, Closure $next, ?string $token = null)
     {
         try {
             $token ? $this->auth->setToken($token) : $this->auth->parseToken();
@@ -59,5 +63,4 @@ class AuthenticateAndIfNeedRefreshToken extends BaseMiddleware
             ? $response
             : $this->setAuthenticationHeader($response, $token);
     }
-
 }

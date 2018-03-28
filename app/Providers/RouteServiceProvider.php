@@ -1,16 +1,17 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Providers;
 
-use App\Models\User;
-use App\Models\Message;
 use App\Models\Conversation;
-use Illuminate\Support\Facades\Route;
+use App\Models\Message;
+use App\Models\User;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 /**
- * Class RouteServiceProvider
- * @package App\Providers
+ * Class RouteServiceProvider.
  */
 class RouteServiceProvider extends ServiceProvider
 {
@@ -20,8 +21,9 @@ class RouteServiceProvider extends ServiceProvider
     protected $namespace = 'App\Http\Controllers';
 
     /**
-     * @return void
      * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
+     *
+     * @return void
      */
     public function boot(): void
     {
@@ -45,7 +47,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     protected function mapApiRoutes(): void
     {
-       $this->prefix('api')
+        $this->prefix('api')
             ->middleware('api')
             ->namespace($this->namespace)
             ->group(base_path('routes/api.php'));

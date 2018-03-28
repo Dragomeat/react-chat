@@ -1,15 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
 use App\Models\Conversation;
-use App\Models\Participant\ConversationInviteRule;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 /**
- * Class CreateConversationRequest
- * @package App\Http\Requests
+ * Class CreateConversationRequest.
  */
 class CreateConversationRequest extends FormRequest
 {

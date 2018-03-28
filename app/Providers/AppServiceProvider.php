@@ -1,12 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class AppServiceProvider
- * @package App\Providers
+ * Class AppServiceProvider.
  */
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,7 +16,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
     }
 
     /**
@@ -23,6 +23,5 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-
     }
 }

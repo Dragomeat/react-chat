@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
@@ -6,15 +8,15 @@ use Closure;
 use Illuminate\Support\Facades\Auth;
 
 /**
- * Class FailIfAuthenticated
- * @package App\Http\Middleware
+ * Class FailIfAuthenticated.
  */
 class FailIfAuthenticated
 {
     /**
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Closure  $next
-     * @param  string|null  $guard
+     * @param \Illuminate\Http\Request $request
+     * @param \Closure                 $next
+     * @param string|null              $guard
+     *
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)

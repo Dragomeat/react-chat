@@ -1,17 +1,18 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Models;
 
 use App\Models\Participant\RoleType;
 use App\Models\Traits\UuidTrait;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
- * Class Conversation
- * @package App\Models
+ * Class Conversation.
  */
 class Conversation extends Model
 {
@@ -21,12 +22,13 @@ class Conversation extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'name_type', 'type'
+        'name', 'name_type', 'type',
     ];
 
     /**
      * @param \Illuminate\Database\Eloquent\Builder $query
-     * @param \App\Models\User $user
+     * @param \App\Models\User                      $user
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeForUser(Builder $query, User $user): Builder
@@ -39,6 +41,7 @@ class Conversation extends Model
 
     /**
      * @param \App\Models\User $user
+     *
      * @return \App\Models\Participant|null
      */
     public function getParticipantFor(User $user): ?Participant
@@ -50,6 +53,7 @@ class Conversation extends Model
 
     /**
      * @param \App\Models\Participant $participant
+     *
      * @return bool
      */
     public function isParticipantBelongs(Participant $participant): bool
@@ -59,6 +63,7 @@ class Conversation extends Model
 
     /**
      * @param \App\Models\User $user
+     *
      * @return bool
      */
     public function isAdmin(User $user): bool

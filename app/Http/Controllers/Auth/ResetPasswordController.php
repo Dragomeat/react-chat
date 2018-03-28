@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
@@ -6,8 +8,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 
 /**
- * Class ResetPasswordController
- * @package App\Http\Controllers\Auth
+ * Class ResetPasswordController.
  */
 class ResetPasswordController extends Controller
 {

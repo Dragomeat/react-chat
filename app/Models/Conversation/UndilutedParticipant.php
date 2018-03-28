@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Models\Conversation;
 
@@ -7,14 +9,14 @@ use App\Models\Participant;
 use Exception;
 
 /**
- * Class UndilutedParticipant
- * @package App\Models\Conversation
+ * Class UndilutedParticipant.
  */
 class UndilutedParticipant extends Exception
 {
     /**
      * UndilutedParticipant constructor.
-     * @param \App\Models\Participant $participant
+     *
+     * @param \App\Models\Participant  $participant
      * @param \App\Models\Conversation $conversation
      */
     public function __construct(Participant $participant, Conversation $conversation)

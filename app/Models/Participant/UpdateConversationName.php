@@ -1,24 +1,26 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Models\Participant;
 
-use App\Models\Participant;
 use App\Models\Conversation\Name;
+use App\Models\Participant;
 
 /**
- * Class UpdateConversationName
- * @package App\Models\Participant
+ * Class UpdateConversationName.
  */
 class UpdateConversationName
 {
     /**
      * @param \App\Models\Participant $participant
+     *
      * @throws \App\Models\Conversation\UndilutedParticipant
      */
     public function created(Participant $participant): void
     {
         /**
-         * @var \App\Models\Conversation $conversation
+         * @var \App\Models\Conversation
          */
         $conversation = $participant->conversation;
 
@@ -27,12 +29,13 @@ class UpdateConversationName
 
     /**
      * @param \App\Models\Participant $participant
+     *
      * @return void
      */
     public function deleted(Participant $participant): void
     {
         /**
-         * @var \App\Models\Conversation $conversation
+         * @var \App\Models\Conversation
          */
         $conversation = $participant->conversation;
 
