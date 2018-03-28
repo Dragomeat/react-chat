@@ -1,13 +1,14 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 /**
- * Class UpdateMessageRequest
- * @package App\Http\Requests
+ * Class UpdateMessageRequest.
  */
 class UpdateMessageRequest extends FormRequest
 {

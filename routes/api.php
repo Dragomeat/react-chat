@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 use App\Notifications\TestNotification;
 use Illuminate\Http\Request;
@@ -12,7 +14,7 @@ Route::group(['prefix' => 'auth'], function () {
     Route::post('/confirm/{token}', function (string $token) {
         return response()->json([
             'success' => true,
-            'token' => $token,
+            'token'   => $token,
         ]);
     })->name('auth.register.confirm');
 });
@@ -23,20 +25,20 @@ Route::group(['middleware' => 'jwt'], function () {
     Route::get('user', function (Request $request) {
         return response()->json([
             'success' => true,
-            'data' => $request->user(),
+            'data'    => $request->user(),
         ]);
     });
 
     Route::get('test', function () {
         /**
-         * @var \App\Models\User $user
+         * @var \App\Models\User
          */
         $user = auth()->user();
 
-        $user->notify(new TestNotification);
+        $user->notify(new TestNotification());
 
         return response()->json([
-            'success' => true
+            'success' => true,
         ]);
     });
 });

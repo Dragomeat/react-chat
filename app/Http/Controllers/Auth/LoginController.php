@@ -1,18 +1,19 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
-use Tymon\JWTAuth\JWTGuard;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Validation\ValidationException;
+use App\Models\User;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpFoundation\Response;
+use Tymon\JWTAuth\JWTGuard;
 
 /**
- * Class LoginController
- * @package App\Account\Http\Controllers
+ * Class LoginController.
  */
 class LoginController extends Controller
 {
@@ -28,9 +29,11 @@ class LoginController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @return \Symfony\Component\HttpFoundation\Response
+     *
      * @throws \RuntimeException
      * @throws \Illuminate\Validation\ValidationException
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function login(Request $request): Response
     {
@@ -58,7 +61,7 @@ class LoginController extends Controller
     {
         return response()->json([
             'success' => true,
-            'data' => [
+            'data'    => [
                 'token' => $this->guard()->refresh(),
             ],
         ]);
@@ -71,12 +74,13 @@ class LoginController extends Controller
     {
         $this->validate($request, [
             $this->username() => 'required|email|string',
-            'password' => 'required|string',
+            'password'        => 'required|string',
         ]);
     }
 
     /**
      * @param Request $request
+     *
      * @return string|bool
      */
     protected function attemptLogin(Request $request)
@@ -87,7 +91,8 @@ class LoginController extends Controller
     }
 
     /**
-     * @param  \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     protected function credentials(Request $request): array
@@ -97,7 +102,8 @@ class LoginController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param string $token
+     * @param string                   $token
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function sendLoginResponse(Request $request, string $token): Response
@@ -112,15 +118,16 @@ class LoginController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @param \App\Models\User $user
-     * @param string $token
+     * @param \App\Models\User         $user
+     * @param string                   $token
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function authenticated(Request $request, User $user, string $token): Response
     {
         return response()->json([
             'success' => true,
-            'data' => array_merge([
+            'data'    => array_merge([
                 'token' => $token,
             ], $user->attributesToArray()),
         ]);
@@ -128,8 +135,10 @@ class LoginController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
-     * @return null|\Symfony\Component\HttpFoundation\Response
+     *
      * @throws \Illuminate\Validation\ValidationException
+     *
+     * @return null|\Symfony\Component\HttpFoundation\Response
      */
     protected function sendFailedLoginResponse(Request $request): ?Response
     {
@@ -148,6 +157,7 @@ class LoginController extends Controller
 
     /**
      * @param \Illuminate\Http\Request $request
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function logout(Request $request): Response

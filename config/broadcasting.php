@@ -30,7 +30,7 @@ return [
 
     'connections' => [
         'redis' => [
-            'driver' => 'redis',
+            'driver'     => 'redis',
             'connection' => 'default',
         ],
     ],

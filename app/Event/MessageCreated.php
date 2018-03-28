@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Event;
 
@@ -8,8 +10,7 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
 /**
- * Class MessageCreated
- * @package App\Event
+ * Class MessageCreated.
  */
 class MessageCreated implements ShouldBroadcast
 {
@@ -22,6 +23,7 @@ class MessageCreated implements ShouldBroadcast
 
     /**
      * MessageCreated constructor.
+     *
      * @param \App\Models\Message $message
      */
     public function __construct(Message $message)

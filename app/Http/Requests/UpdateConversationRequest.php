@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
@@ -6,8 +8,7 @@ use Gate;
 use Illuminate\Foundation\Http\FormRequest;
 
 /**
- * Class UpdateConversationRequest
- * @package App\Http\Requests
+ * Class UpdateConversationRequest.
  */
 class UpdateConversationRequest extends FormRequest
 {

@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -8,8 +10,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * Class ParticipantController
- * @package App\Http\Controllers
+ * Class ParticipantController.
  */
 class ParticipantController extends Controller
 {
@@ -26,7 +27,8 @@ class ParticipantController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request): JsonResource
@@ -37,7 +39,8 @@ class ParticipantController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Participant  $participant
+     * @param \App\Models\Participant $participant
+     *
      * @return \Illuminate\Http\Response
      */
     public function show(Participant $participant): JsonResource
@@ -48,8 +51,9 @@ class ParticipantController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Participant  $participant
+     * @param \Illuminate\Http\Request $request
+     * @param \App\Models\Participant  $participant
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Participant $participant): JsonResource
@@ -62,7 +66,8 @@ class ParticipantController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Participant  $participant
+     * @param \App\Models\Participant $participant
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy(Participant $participant): JsonResource

@@ -1,14 +1,15 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Conversation;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 /**
- * Class ConversationPolicy
- * @package App\Policies
+ * Class ConversationPolicy.
  */
 class ConversationPolicy
 {
@@ -16,6 +17,7 @@ class ConversationPolicy
 
     /**
      * @param \App\Models\User $user
+     *
      * @return bool
      */
     public function create(User $user): bool
@@ -24,8 +26,9 @@ class ConversationPolicy
     }
 
     /**
-     * @param \App\Models\User $user
+     * @param \App\Models\User         $user
      * @param \App\Models\Conversation $conversation
+     *
      * @return bool
      */
     public function update(User $user, Conversation $conversation): bool
@@ -34,8 +37,9 @@ class ConversationPolicy
     }
 
     /**
-     * @param \App\Models\User $user
+     * @param \App\Models\User         $user
      * @param \App\Models\Conversation $conversation
+     *
      * @return bool
      */
     public function destroy(User $user, Conversation $conversation): bool

@@ -1,12 +1,13 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\ResourceCollection;
 
 /**
- * Class ParticipantCollection
- * @package App\Http\Resources
+ * Class ParticipantCollection.
  */
 class ParticipantCollection extends ResourceCollection
 {
@@ -17,13 +18,14 @@ class ParticipantCollection extends ResourceCollection
 
     /**
      * @param \Illuminate\Http\Request $request
+     *
      * @return array
      */
     public function toArray($request): array
     {
         return [
             'success' => true,
-            'data' => $this->collection,
+            'data'    => $this->collection,
         ];
     }
 }

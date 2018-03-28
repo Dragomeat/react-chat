@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Exceptions;
 
@@ -10,8 +12,7 @@ use Illuminate\Validation\ValidationException;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 /**
- * Class Handler
- * @package App\Exceptions
+ * Class Handler.
  */
 class Handler extends ExceptionHandler
 {
@@ -23,9 +24,11 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * @param  \Exception $exception
-     * @return void
+     * @param \Exception $exception
+     *
      * @throws \Exception
+     *
+     * @return void
      */
     public function report(Exception $exception): void
     {
@@ -37,8 +40,9 @@ class Handler extends ExceptionHandler
     }
 
     /**
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request                 $request
      * @param \Illuminate\Auth\AuthenticationException $exception
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     protected function unauthenticated($request, AuthenticationException $exception): JsonResponse
@@ -50,7 +54,8 @@ class Handler extends ExceptionHandler
 
     /**
      * @param \Illuminate\Validation\ValidationException $exception
-     * @param \Illuminate\Http\Request $request
+     * @param \Illuminate\Http\Request                   $request
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     protected function convertValidationExceptionToResponse(ValidationException $exception, $request): JsonResponse
@@ -66,6 +71,7 @@ class Handler extends ExceptionHandler
 
     /**
      * @param \Exception $exception
+     *
      * @return array
      */
     protected function convertExceptionToArray(Exception $exception): array
@@ -73,7 +79,7 @@ class Handler extends ExceptionHandler
         return array_merge([
             'success' => false,
             'message' => $exception->getMessage() ?: 'Internal Server Error',
-            'data' => [],
+            'data'    => [],
         ], ['errors' => $exception instanceof ValidationException ? $exception->errors() : []]);
     }
 }

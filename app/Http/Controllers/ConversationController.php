@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Http\Controllers;
 
@@ -14,8 +16,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
- * Class ConversationController
- * @package App\Http\Controllers
+ * Class ConversationController.
  */
 class ConversationController extends Controller
 {
@@ -41,12 +42,12 @@ class ConversationController extends Controller
             ->latest('conversations.updated_at')
             ->paginate();
 
-
         return new ConversationCollection($conversations);
     }
 
     /**
      * @param \App\Models\Conversation $conversation
+     *
      * @return \Illuminate\Http\Resources\Json\JsonResource
      */
     public function show(Conversation $conversation): JsonResource
@@ -56,6 +57,7 @@ class ConversationController extends Controller
 
     /**
      * @param \App\Http\Requests\CreateConversationRequest $request
+     *
      * @return \Illuminate\Http\Resources\Json\JsonResource
      */
     public function store(CreateConversationRequest $request): JsonResource
@@ -64,23 +66,23 @@ class ConversationController extends Controller
 
         $conversation->participants()->create([
             'user_id' => auth()->user()->getAuthIdentifier(),
-            'role' => Participant\RoleType::ADMIN,
+            'role'    => Participant\RoleType::ADMIN,
         ]);
 
         foreach ($request->get('participants', []) as $participant) {
-            /** @var  Participant $participant */
+            /* @var  Participant $participant */
             $conversation->participants()->create([
                 'user_id' => $participant,
             ]);
         }
-
 
         return new ConversationResource($conversation);
     }
 
     /**
      * @param UpdateConversationRequest $request
-     * @param Conversation $conversation
+     * @param Conversation              $conversation
+     *
      * @return JsonResource
      */
     public function update(UpdateConversationRequest $request, Conversation $conversation): JsonResource
@@ -94,6 +96,7 @@ class ConversationController extends Controller
 
     /**
      * @param \App\Models\Conversation $conversation
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Conversation $conversation): JsonResponse

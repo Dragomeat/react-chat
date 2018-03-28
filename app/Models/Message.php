@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace App\Models;
 
@@ -8,8 +10,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
- * Class Message
- * @package App\Models
+ * Class Message.
  */
 class Message extends Model
 {
@@ -26,7 +27,7 @@ class Message extends Model
      * @var array
      */
     protected $with = [
-        'participant'
+        'participant',
     ];
 
     /**
