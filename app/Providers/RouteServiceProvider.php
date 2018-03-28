@@ -1,55 +1,53 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Providers;
 
+use App\Models\User;
+use App\Models\Message;
+use App\Models\Conversation;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
+/**
+ * Class RouteServiceProvider
+ * @package App\Providers
+ */
 class RouteServiceProvider extends ServiceProvider
 {
     /**
-     * This namespace is applied to your controller routes.
-     *
-     * In addition, it is set as the URL generator's root namespace.
-     *
      * @var string
      */
     protected $namespace = 'App\Http\Controllers';
 
     /**
-     * Define your route model bindings, pattern filters, etc.
-     *
      * @return void
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
-    public function boot()
+    public function boot(): void
     {
-        //
-
         parent::boot();
+
+        Route::model('user', User::class);
+        Route::model('conversation', Conversation::class);
+        Route::model('message', Message::class);
     }
 
     /**
-     * Define the routes for the application.
-     *
      * @return void
      */
-    public function map()
+    public function map(): void
     {
         $this->mapApiRoutes();
     }
 
     /**
-     * Define the "api" routes for the application.
-     *
-     * These routes are typically stateless.
-     *
      * @return void
      */
-    protected function mapApiRoutes()
+    protected function mapApiRoutes(): void
     {
-        Route::prefix('api')
-             ->middleware('api')
-             ->namespace($this->namespace)
-             ->group(base_path('routes/api.php'));
+       $this->prefix('api')
+            ->middleware('api')
+            ->namespace($this->namespace)
+            ->group(base_path('routes/api.php'));
     }
 }

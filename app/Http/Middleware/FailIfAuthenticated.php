@@ -1,15 +1,17 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
-class RedirectIfAuthenticated
+/**
+ * Class FailIfAuthenticated
+ * @package App\Http\Middleware
+ */
+class FailIfAuthenticated
 {
     /**
-     * Handle an incoming request.
-     *
      * @param  \Illuminate\Http\Request  $request
      * @param  \Closure  $next
      * @param  string|null  $guard

@@ -1,32 +1,34 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Event;
+use App\Models\Participant;
+use App\Event\MessageCreated;
+use App\Listeners\BroadcastMessageCreated;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
+/**
+ * Class EventServiceProvider
+ * @package App\Providers
+ */
 class EventServiceProvider extends ServiceProvider
 {
     /**
-     * The event listener mappings for the application.
-     *
      * @var array
      */
     protected $listen = [
-        'App\Events\Event' => [
-            'App\Listeners\EventListener',
-        ],
+//        MessageCreated::class => [
+//            BroadcastMessageCreated::class,
+//        ],
     ];
 
     /**
-     * Register any events for your application.
-     *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         parent::boot();
 
-        //
+        Participant::observe(Participant\UpdateConversationName::class);
     }
 }

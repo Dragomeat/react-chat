@@ -1,30 +1,32 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
+use App\Models\Conversation;
+use App\Models\Message;
+use App\Policies\ConversationPolicy;
+use App\Policies\MessagePolicy;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
+/**
+ * Class AuthServiceProvider
+ * @package App\Providers
+ */
 class AuthServiceProvider extends ServiceProvider
 {
     /**
-     * The policy mappings for the application.
-     *
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        Conversation::class => ConversationPolicy::class,
+        Message::class => MessagePolicy::class,
     ];
 
     /**
-     * Register any authentication / authorization services.
-     *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
         $this->registerPolicies();
-
-        //
     }
 }

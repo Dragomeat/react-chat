@@ -1,0 +1,9 @@
+import {BaseConstants} from './BaseConstants';
+
+export const ConversationConstants = {
+    CONVERSATIONS_FETCH_REQUEST: 'CONVERSATIONS_FETCH_' + BaseConstants.REQUEST,
+    CONVERSATIONS_FETCH_FAILURE: 'CONVERSATIONS_FETCH_'  + BaseConstants.FAILURE,
+    CONVERSATIONS_FETCH_SUCCESS: 'CONVERSATIONS_FETCH_'  + BaseConstants.SUCCESS,
+
+    SELECT_CONVERSATION: 'SELECT_CONVERSATION',
+};
