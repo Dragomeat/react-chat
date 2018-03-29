@@ -12,6 +12,7 @@ use App\Http\Resources\MessageResource;
 use App\Models\Conversation;
 use App\Models\Message;
 use App\Models\Participant;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 /**
@@ -20,16 +21,25 @@ use Illuminate\Http\Resources\Json\JsonResource;
 class MessageController extends Controller
 {
     /**
+     * @param \Illuminate\Http\Request $request
      * @param Conversation $conversation
      *
      * @return JsonResource
      */
-    public function index(Conversation $conversation): JsonResource
+    public function index(Request $request, Conversation $conversation): JsonResource
     {
+        $this->validate($request, [
+            'offset' => 'integer|min:0|nullable',
+        ]);
+
+        $offset = $request->get('offset', 0);
+
         $messages = $conversation
             ->messages()
             ->latest()
-            ->paginate(25);
+            ->take(25)
+            ->offset($offset)
+            ->get();
 
         return new MessageCollection($messages);
     }

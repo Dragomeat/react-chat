@@ -8,15 +8,18 @@ import {BaseStatusConstants} from '_constants';
 import {fetchMessagesIfNeeded, selectConversation, setAutoScroll} from '_actions';
 import {MessagesComponent} from './MessagesComponent';
 
-const mapStateToProps = (state, props) => ({
-    autoScrollToBottom: state.messages.autoScrollToBottom,
-    idOfSelectedConversation: state.conversations.selectedConversation,
-    selectedConversation: getSelectedConversation(state.conversations.data, props.match.params.id),
-    messages: getMessagesForSelectedConversation(state.messages.data, props.match.params.id),
-    currentPageOfMessages: state.messages.currentPage,
-    isFetching: isCurrentStatus(BaseStatusConstants.FETCHING, state.messages),
-    user: state.user.data,
-});
+const mapStateToProps = (state, props) => {
+    const messages = getMessagesForSelectedConversation(state.messages.data, props.match.params.id);
+
+    return {
+        messagesOffset: messages.length,
+        autoScrollToBottom: state.messages.autoScrollToBottom,
+        selectedConversation: getSelectedConversation(state.conversations.data, props.match.params.id),
+        messages,
+        isFetching: isCurrentStatus(BaseStatusConstants.FETCHING, state.messages),
+        user: state.user.data,
+    };
+};
 const mapDispatchToProps = (dispatch) => bindActionCreators({
     fetchMessagesIfNeeded,
     selectConversation,
@@ -26,27 +29,30 @@ const mapDispatchToProps = (dispatch) => bindActionCreators({
 
 class MessagesContainer extends React.Component {
     componentWillReceiveProps(nextProps) {
-        const {idOfSelectedConversation} = nextProps;
-        const {selectConversation, match} = this.props;
+      //  const {selectedConversation: nextSelectedConversation} = nextProps;
+     //   const {selectConversation, selectedConversation, match} = this.props;
 
+       // console.log(selectedConversation, nextSelectedConversation, match.params.id);
 
-        console.log('componentWillReceiveProps', idOfSelectedConversation, match.params.id);
-        if (idOfSelectedConversation !== match.params.id) {
-            selectConversation(match.params.id);
-        }
+        // if (selectedConversation === match.params.id) {
+        //     selectConversation(match.params.id);
+        // }
+        //
+        // if (selectedConversation && nextSelectedConversation && selectedConversation.id !== nextSelectedConversation.id) {
+        //     selectConversation(nextSelectedConversation.id);
+        // }
     }
 
     componentDidUpdate() {
         const {selectedConversation} = this.props;
 
         if (selectedConversation) {
-            console.log(selectedConversation);
-            this.props.fetchMessagesIfNeeded(selectedConversation.id, 1);
+            this.props.fetchMessagesIfNeeded(selectedConversation.id);
         }
     }
 
     render() {
-        const {isFetching, messages, autoScrollToBottom, setAutoScroll, fetchMessagesIfNeeded, selectedConversation} = this.props;
+        const {isFetching, messages, autoScrollToBottom, setAutoScroll, messagesOffset, fetchMessagesIfNeeded, selectedConversation} = this.props;
 
         if (!selectedConversation) {
             return <h1>Not found.</h1>;
@@ -59,6 +65,7 @@ class MessagesContainer extends React.Component {
             autoScrollToBottom={autoScrollToBottom}
             setAutoScroll={setAutoScroll}
             messages={messages}
+            messagesOffset={messagesOffset}
         />;
     }
 }

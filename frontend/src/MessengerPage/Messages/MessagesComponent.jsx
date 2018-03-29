@@ -44,17 +44,19 @@ export class MessagesComponent extends React.Component {
 
     handleScroll(values) {
         const { _container } = this.refs;
-        const { autoScrollToBottom: prevAutoScrollToBottom, setAutoScroll, fetchMessagesIfNeeded, selectedConversation } = this.props;
+        const { autoScrollToBottom: prevAutoScrollToBottom, setAutoScroll, fetchMessagesIfNeeded, selectedConversation, messagesOffset } = this.props;
         const autoScrollToBottom = values.top >= 0.96;
 
         if (autoScrollToBottom !== prevAutoScrollToBottom) {
             setAutoScroll(autoScrollToBottom);
         }
 
-        const loadNewMessages = _container.getScrollTop() <= 50;
+        const loadNewMessages = _container.getScrollTop() <= 150;
+
+        console.log('handleScroll', _container.getScrollTop(), loadNewMessages, messagesOffset);
 
         if (loadNewMessages) {
-            fetchMessagesIfNeeded(selectedConversation.id, 2);
+            fetchMessagesIfNeeded(selectedConversation.id, messagesOffset);
         }
     }
 
@@ -65,12 +67,12 @@ export class MessagesComponent extends React.Component {
             <div>
                 <Header as='h3' dividing>{selectedConversation.name}</Header>
 
-                <Segment basic style={{height: '800px'}}>
+                <Segment basic style={{height: '700px'}}>
                     <Scrollbars
                         autoHide
                         autoHideTimeout={500}
                         autoHideDuration={200}
-                        onScrollFrame={this.handleScroll}
+                        onScroll={this.handleScroll}
                         ref='_container'
                     >
                         <Comment.Group>

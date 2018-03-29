@@ -3,6 +3,7 @@ import {BaseStatusConstants, MessagesConstants} from '_constants';
 import {isCurrentStatus} from '_utils';
 import {getPaginatorForConversation} from '_selectors';
 import {getMessagesForSelectedConversation} from '../_selectors';
+import {isInitializedStatus} from '../_utils';
 
 export function setAutoScroll(value) {
     return {
@@ -10,24 +11,6 @@ export function setAutoScroll(value) {
          payload: {
              value,
          }
-    };
-}
-
-export function setCurrentPage(page) {
-    return {
-         type: MessagesConstants.SET_CURRENT_PAGE,
-         data: {
-             currentPage: page,
-         }
-    };
-}
-
-export function setLatestPage(page) {
-    return {
-        type: MessagesConstants.SET_LATEST_PAGE,
-        data: {
-            latestPage: page,
-        }
     };
 }
 
@@ -46,12 +29,11 @@ export function requestMessages() {
     };
 }
 
-export function receiveMessages(conversation_id, messages, paginator) {
+export function receiveMessages(conversation_id, messages, offset) {
     messages = messages.map((message) => {
         return {
             ...message,
             conversation_id,
-            page: paginator.currentPage,
         };
     });
 
@@ -59,48 +41,46 @@ export function receiveMessages(conversation_id, messages, paginator) {
         type: MessagesConstants.MESSAGES_FETCH_SUCCESS,
         payload: {
             data: messages,
-            currentPage: paginator.currentPage,
-            latestPage: paginator.latestPage,
+            offset: offset,
+            conversationId: conversation_id,
         },
     };
 }
 
-export function fetchMessages(conversation_id, page) {
+export function fetchMessages(conversation_id, offset) {
     return (dispatch) => {
         dispatch(requestMessages());
 
-        axios.get(`/api/conversations/${conversation_id}/messages?page=${page}`)
+        axios.get(`/api/conversations/${conversation_id}/messages?offset=${offset}`)
             .then((response) => response.data)
             .then((body) => {
-                dispatch(receiveMessages(conversation_id, body.data, {
-                    currentPage: body.meta.current_page,
-                    latestPage: body.meta.last_page,
-                }));
+                dispatch(receiveMessages(conversation_id, body.data, offset));
             });
     };
 }
 
-export function shouldFetchMessages(conversation_id, page, state) {
-    if(isCurrentStatus(BaseStatusConstants.INITIALIZED, state.messages)) {
+export function shouldFetchMessages(conversation_id, offset, state) {
+    if(isInitializedStatus(state.messages)) {
         return true;
     }
 
-    const paginator = getPaginatorForConversation(state.conversations.data, conversation_id);
-    const countOfMessages = getMessagesForSelectedConversation(state.messages.data, conversation_id).length;
-
-    if (countOfMessages < paginator.currentPage * 25 && !isCurrentStatus(BaseStatusConstants.FETCHING, state.messages)) {
-        return true;
+    if (isCurrentStatus(BaseStatusConstants.FETCHING, state.messages)) {
+        return false;
     }
 
-    console.log(paginator.currentPage !== page && paginator.latestPage >= page && !isCurrentStatus(BaseStatusConstants.FETCHING, state.messages));
+    const currentOffset = getMessagesForSelectedConversation(state.messages.data, conversation_id).length;
 
-    return paginator.currentPage !== page && paginator.latestPage >= page && !isCurrentStatus(BaseStatusConstants.FETCHING, state.messages);
+    console.log(conversation_id, offset, currentOffset);
+
+  //  return false;
+
+    return currentOffset === offset;
 }
 
-export function fetchMessagesIfNeeded(conversation_id, page) {
+export function fetchMessagesIfNeeded(conversation_id, offset = 0) {
     return (dispatch, getState) => {
-        if (shouldFetchMessages(conversation_id, page, getState())) {
-            dispatch(fetchMessages(conversation_id, page));
+        if (shouldFetchMessages(conversation_id, offset, getState())) {
+            dispatch(fetchMessages(conversation_id, offset));
         }
     };
 }
