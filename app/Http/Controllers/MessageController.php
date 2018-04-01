@@ -22,7 +22,7 @@ class MessageController extends Controller
 {
     /**
      * @param \Illuminate\Http\Request $request
-     * @param Conversation $conversation
+     * @param Conversation             $conversation
      *
      * @return JsonResource
      */
